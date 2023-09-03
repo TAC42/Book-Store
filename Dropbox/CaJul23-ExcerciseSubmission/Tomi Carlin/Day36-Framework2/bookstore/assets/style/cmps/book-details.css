@@ -16,3 +16,20 @@
     display: block;
     margin: auto;
 }
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.on-sale {
+    display: none;
+}
+
+.discount {
+    display: block;
+    font-weight: bold;
+}

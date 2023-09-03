@@ -35,16 +35,16 @@ export function BookFilter({ filterBy, onSetFilterBy }) {
         onSetFilterBy(filterByToEdit)
     }
 
-    const { title, categories } = filterByToEdit
+    const { title, price } = filterByToEdit
     return (
         <section className="book-filter">
             <h2>Books Filter</h2>
             <form onSubmit={onSubmitFilter}>
                 <label htmlFor="title">Title: </label>
-                <input value={title} onChange={handleChange} type="title" placeholder="By Vendor" id="title" name="title" />
+                <input value={title} onChange={handleChange} type="title" placeholder="By Title" id="title" name="title" />
 
-                <label htmlFor="categories">Categories: </label>
-                <input value={categories} onChange={handleChange} type="string" placeholder="By Categories" id="categories" name="categories" />
+                <label htmlFor="price">Price: </label>
+                <input value={price} onChange={handleChange} type="number" placeholder="By Price" id="price" name="price" />
 
                 <button>Set Filter</button>
             </form>
