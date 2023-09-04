@@ -20,7 +20,7 @@ export function LongText({ text, length }) {
   }
 
   return (
-    <div>
+    <div className="long-text">
       <p>{truncatedText}</p>
       <button onClick={toggleReadMore}>
         {isTruncated ? 'Read more...' : 'Show less'}

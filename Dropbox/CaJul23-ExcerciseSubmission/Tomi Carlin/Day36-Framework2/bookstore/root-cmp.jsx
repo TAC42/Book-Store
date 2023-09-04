@@ -1,29 +1,34 @@
-const { useState } = React
+const Router = ReactRouterDOM.HashRouter
+const { Routes, Route } = ReactRouterDOM
 
-import { About } from "./pages/About.jsx";
-import { BookIndex } from "./pages/BookIndex.jsx";
-import { Home } from "./pages/Home.jsx";
+import { AppHeader } from "./cmps/app-header.jsx"
+import { About } from "./pages/about.jsx"
+import { BookIndex } from "./pages/book-index.jsx"
+import { Home } from "./pages/home.jsx"
+import { BookDetails } from "./pages/book-details.jsx"
+import { BookEdit } from "./pages/book-edit.jsx"
+import { AddReview } from "./cmps/add-review.jsx"
+import { ReviewList } from "./cmps/review-list.jsx"
 
 export function App() {
-
-    const [page, setPage] = useState('book')
-
     return (
-        <section className="app main-layout">
-            <header className="app-header full main-layout">
-                <h1>Tomi's Book Store</h1>
-                <nav className="app-nav">
-                    <a onClick={() => setPage('home')} href="#">Home</a>
-                    <a onClick={() => setPage('about')} href="#">AboutUS</a>
-                    <a onClick={() => setPage('book')} href="#">Books</a>
-                </nav>
-            </header>
-
-            <main>
-                {page === 'home' && < Home />}
-                {page === 'about' && <About />}
-                {page === 'book' && <BookIndex />}
-            </main>
-        </section>
+        <Router>
+            <section className="app main-layout">
+                <AppHeader />
+                <main>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/book/:bookId" element={<BookDetails />} >
+                            <Route path="/book/:bookId/view-reviews" element={<ReviewList />} />
+                            <Route path="/book/:bookId/add-review" element={<AddReview />} />
+                        </Route>
+                        <Route path="/book/edit/:bookId" element={<BookEdit />} />
+                        <Route path="/book/edit" element={<BookEdit />} />
+                        <Route path="/book" element={<BookIndex />} />
+                    </Routes>
+                </main>
+            </section>
+        </Router>
     )
 } 
