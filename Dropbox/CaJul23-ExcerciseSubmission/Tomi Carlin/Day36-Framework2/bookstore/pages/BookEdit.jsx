@@ -1,8 +1,6 @@
 import { bookService } from "../services/book.service.js"
-
 const { useState, useEffect } = React
 const { useNavigate, useParams } = ReactRouterDOM
-
 
 export function BookEdit() {
 
@@ -13,7 +11,6 @@ export function BookEdit() {
     useEffect(() => {
         if (params.bookId) loadBook()
     }, [])
-
 
     function loadBook() {
         bookService.get(params.bookId)
@@ -26,20 +23,18 @@ export function BookEdit() {
     function handleChange({ target }) {
         const field = target.name
         let value = target.value
-        console.log(field);
-        console.log(value);
         switch (target.type) {
             case 'number':
             case 'range':
                 value = +value || ''
-                break;
+                break
 
             case 'checkbox':
                 value = target.checked
                 break
 
             default:
-                break;
+                break
         }
         if (field === 'amount')  setBookToEdit(prevBookToEdit => ({ ...prevBookToEdit, listPrice:{...prevBookToEdit.listPrice, [field]:value} }))
         else setBookToEdit(prevBookToEdit => ({ ...prevBookToEdit, [field]: value }))
@@ -57,7 +52,6 @@ export function BookEdit() {
 
     const { title, listPrice } = bookToEdit
     const { amount } = listPrice
-    console.log(bookToEdit);
     return (
         <section className="book-edit">
             <form onSubmit={onSaveBook} >

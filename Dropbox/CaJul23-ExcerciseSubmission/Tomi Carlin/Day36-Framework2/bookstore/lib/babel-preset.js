@@ -1,5 +1,5 @@
-// console.log(Babel.availablePresets)
-// console.log(Babel.availablePlugins)
+// 0Babel.availablePresets)
+// 0Babel.availablePlugins)
 const {availablePlugins} = Babel
 Babel.registerPreset('ca-preset', {
   plugins: [

@@ -1,5 +1,5 @@
-import { BookFilter } from "../cmps/book-filter.jsx"
-import { BookList } from "../cmps/book-list.jsx"
+import { BookFilter } from "../cmps/BookFilter.jsx"
+import { BookList } from "../cmps/BookList.jsx"
 import { bookService } from "../services/book.service.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
@@ -37,19 +37,12 @@ export function BookIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
     }
 
-    // function onSelectBookId(bookId) {
-    //     setSelectedBookId(bookId)
-    // }
-
-
-
     if (!books) return <div>Loading...</div>
     return (
         <section className="book-index">
             <BookFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
             <Link to="/book/edit" >Add Book</Link>
             <BookList books={books} onRemoveBook={onRemoveBook} />
-            {/* <BookDetails onBack={() => onSelectBookId(null)} bookId={selectedBookId} />} */}
         </section>
     )
 }

@@ -1,52 +1,53 @@
 import { bookService } from "../services/book.service.js"
-import { LongText } from "../cmps/long-text.jsx"
-// import { AddReview } from "../cmps/add-review.jsx"
-// import { ReviewList } from '../cmps/review-list.jsx';
-
-
+import { LongText } from "../cmps/LongText.jsx"
 const { useState, useEffect } = React
 const { useParams, useNavigate, Link, Outlet } = ReactRouterDOM
 
-
-
 export function BookDetails() {
     const [book, setBook] = useState(null)
-    const [reviews, setReviews] = useState([
-        // Replace this with your actual list of reviews for the book
-        { fullname: 'John Doe', rating: 4, readAt: '2023-01-15' },
-        { fullname: 'Jane Smith', rating: 5, readAt: '2023-02-20' },
-        // Add more reviews as needed
-    ])
-
-    const params = useParams()
+    const { bookId } = useParams()
     const navigate = useNavigate()
 
-
     useEffect(() => {
-        console.log('bookID' , params.bookId);
+        console.log('bookID', bookId);
         loadBook()
-    }, [params.bookId])
-    useEffect(() => {
-       loadReviews()
-    }, [reviews])
+    }, [bookId])
 
     function loadBook() {
-        bookService.get(params.bookId)
+        bookService.get(bookId)
             .then(setBook)
             .catch(err => {
                 console.log('err:', err)
-                // navigate('/book')
+                navigate('/book')
             })
     }
 
-    function loadReviews() {
-        bookService.get(params.bookId)
-            .then({ reviews } )
-            .then(setReviews)
+    function onAddReview(reviewToAdd) {
+        bookService.addReview(bookId, reviewToAdd)
+            .then(updatedBook => {
+                setBook(updatedBook)
+                showSuccessMsg('Review saved successfully')
+            })
             .catch(err => {
                 console.log('err:', err)
+                showErrorMsg('Error saving review')
             })
     }
+
+    function onDeleteReview(reviewId) {
+        bookService
+            .deleteReview(bookId, reviewId)
+            .then(savedBook => {
+                setBook(savedBook)
+                showSuccessMsg('Review deleted successfully')
+            })
+            .catch(err => {
+                console.log('err:', err)
+                showErrorMsg('Error deleting review')
+                navigate('/book')
+            })
+    }
+
     function bookLevel(pages) {
         if (pages < 100) return 'Light Reading'
         else if (pages < 200) return 'Descent Reading'
@@ -66,7 +67,8 @@ export function BookDetails() {
         book.listPrice.amount < 20 ? 'green' : ''
 
     const onSale = (book.listPrice.isOnSale) ? 'discount' : ''
-
+    const { reviews } = book
+    console.log('Reviews in BOOKDETAILS: ', reviews);
     return (
         <section className="book-details">
             <h1>Title: {book.title.toUpperCase()}</h1>
@@ -76,19 +78,21 @@ export function BookDetails() {
             <h3> Categories: {book.categories.join(',')}, Language: {book.language}</h3>
             <h4>Description: </h4>
             <LongText text={book.description} length={6} />
-            {/* <p>{book.description}</p> */}
             <h1 className={`on-sale ${onSale}`}>=== ON SALE! ===</h1>
-            <button><Link to="/book">Next Book</Link></button>
+            <div className="next-prev">
+                <button><Link to={`/book/${book.prevBookId}`}>Previous Book</Link></button>
+                <button><Link to={`/book/${book.nextBookId}`}>Next Book</Link></button>
+            </div>
+
             <button onClick={onBack}>Back</button>
-            {/* <AddReview onAddReview={handleAddReview} /> */}
 
             <nav className="nav-review">
-                <button><Link to={`/book/${params.bookId}/view-reviews`}>Reviews</Link></button>
-                <button><Link to={`/book/${params.bookId}/add-review`}>Add-Review</Link></button>
+                <button><Link to={`/book/${bookId}/view-reviews`}>Reviews</Link></button>
+                <button><Link to={`/book/${bookId}/add-review`}>Add-Review</Link></button>
             </nav>
 
             <section>
-                <Outlet reviews={reviews}/>
+                <Outlet context={[onAddReview, onDeleteReview, reviews]} />
             </section>
 
         </section>

@@ -1,16 +1,9 @@
-const { useState , useEffect } = React
 import { bookService } from "../services/book.service.js"
-const { useParams } = ReactRouterDOM
-
+const { useState } = React
+const { useOutletContext } = ReactRouterDOM
 export function AddReview() {
-    const [review, setReview] = useState(bookService.getDefaultReview())
-    const params = useParams()
-
-    useEffect( ()=> {
-        console.log('params.bookId', params.bookId );
-        bookService.setReview(params.bookId, review)
-    }, [review])
-
+    const [reviewToEdit, setReviewToEdit] = useState(bookService.getDefaultReview())
+    const [onAddReview] = useOutletContext()
     function handleChange({ target }) {
         const field = target.name
         let value = target.value
@@ -29,15 +22,20 @@ export function AddReview() {
                 break;
         }
 
-        setReview(prevReviews => ({ ...prevReviews, [field]: value }))
+        setReviewToEdit(prevReviews => ({ ...prevReviews, [field]: value }))
     }
 
-    const {fullName, rating, readAt} = review
+    function onSubmitReview(ev) {
+        ev.preventDefault()
+        onAddReview(reviewToEdit)
+    }
+
+    const {fullName, rating, readAt} = reviewToEdit
 
     return (
         <div className="add-review">
             <h2>Add a Review</h2>
-            <form>
+            <form onSubmit={onSubmitReview}>
                 <div className="form-group">
                     <label htmlFor="fullName">fullName:</label>
                     <input

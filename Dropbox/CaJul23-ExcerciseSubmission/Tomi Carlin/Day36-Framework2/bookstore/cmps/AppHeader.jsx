@@ -1,4 +1,4 @@
-import { UserMsg } from "./user-msg.jsx"
+import { UserMsg } from "./UserMsg.jsx"
 const { NavLink } = ReactRouterDOM
 
 

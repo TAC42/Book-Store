@@ -1,6 +1,8 @@
+const { useOutletContext } = ReactRouterDOM
 
-
-export function ReviewList({ reviews }) {
+export function ReviewList() {
+  const [_,onDeleteReview, reviews] = useOutletContext()
+  console.log('reviews:' ,reviews);
     return (
       <div className="review-list">
         <h2>Reviews</h2>
@@ -11,6 +13,7 @@ export function ReviewList({ reviews }) {
             {reviews.map((review, index) => (
               <li key={index}>
                 <strong>{review.fullName}</strong> - Rating: {review.rating}, Read at: {review.readAt}
+                <button onClick={()=> onDeleteReview()} >Delete Review</button>
               </li>
             ))}
           </ul>
