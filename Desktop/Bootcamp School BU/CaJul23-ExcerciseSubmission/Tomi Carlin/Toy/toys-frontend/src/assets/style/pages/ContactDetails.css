@@ -1,0 +1,52 @@
+.contact-details-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-details-container .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.contact-details-container .contact-details .contact-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contact-details-container .contact-details .contact-title h2 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 0;
+}
+
+.contact-details-container .contact-details .contact-title h2 span:first-of-type {
+    margin-inline-end: 5px;
+}
+
+.contact-details-container .contact-details .detail {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.contact-details-container .contact-details .detail .title {
+    font-weight: bold;
+    margin-inline-end: 5px;
+}
+
+.contact-details-container .contact-details .detail .title::after {
+    content: ":";
+}
+
+.contact-details-container .contact-details .detail p {
+    font-size: 0.8em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.contact-details-container .add-contact-to-teams,
+.contact-details-container .related-teams-list {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}

@@ -1,0 +1,48 @@
+.layout-grid header.app-header {
+    position: sticky;
+    top: 0;
+
+    grid-column: 1/-1;
+
+    background-color: var(--clr-blue-reg);
+    color: var(--clr-white-reg)
+}
+
+header .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding-block: 2rem;
+    height: 2rem;
+}
+
+header .content nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    height: 100%;
+}
+
+header .content .brand {
+    font-size: 1.5rem;
+    font-weight: bolder;
+    letter-spacing: 1px;
+}
+
+header .content nav a {
+    position: relative;
+    font-size: 1.2rem;
+}
+
+header .content nav a:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: -.5rem;
+
+    background-color: var(--clr-white-reg);
+    width: 1px;
+    height: 100%;
+}

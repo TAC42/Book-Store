@@ -1,0 +1,11 @@
+.team-details-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.team-details-container .team-details .team-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

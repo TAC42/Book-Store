@@ -1,0 +1,18 @@
+.layout-grid {
+  display: grid;
+  grid-template-columns: minmax(1rem, 1fr) minmax(auto, 1000px) minmax(1rem, 1fr);
+}
+
+.layout-grid.centerize > *{
+  grid-column: 2/3;
+}
+
+.layout-rows {
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+
+main {
+  grid-row: 2/3;
+  margin-block: 1rem;
+}
